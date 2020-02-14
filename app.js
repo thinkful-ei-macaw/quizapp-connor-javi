@@ -105,14 +105,11 @@ function render() {
 
 function generateLandingPageString() {
   let landingPageString = `<section class="welcome-screen">
-  <header>
     <h1>Welcome!</h1>
-  </header>
-  <main>
+  
     <form class="pageOneForm"><button type='submit' class="start-button">Start Quiz!</button></form>
     <p>How well do you know the world’s most famous investors?</p>
-  </main>
-  </section>`;
+  `;
   return landingPageString;
 }
 
@@ -130,13 +127,13 @@ function generateQuestionPageString() {
     <h1>${questionString}</h1>
     <form>
       <input type="radio" id="choice-one" name="answer">
-      <label for="answer">${questionArray[0]}</label><br>
+      <label for="choice-one">${questionArray[0]}</label><br>
       <input type="radio" id="choice-two" name="answer">
-      <label for="answer">${questionArray[1]}</label><br>
+      <label for="choice-two">${questionArray[1]}</label><br>
       <input type="radio" id="choice-three" name="answer">
-      <label for="answer">${questionArray[2]}</label><br>
+      <label for="choice-three">${questionArray[2]}</label><br>
       <input type="radio" id="choice-four" name="answer">
-      <label for="answer">${questionArray[3]}</label><br>
+      <label for="choice-four">${questionArray[3]}</label><br>
       <button type="submit" id='submit-button'>Submit</button>
     </form>
 
@@ -191,29 +188,40 @@ function generateSummaryPageString() {
     <p>Press the retake quiz button to take the quiz again</p>
   </main>
 </section>`; 
+
+  return summaryPageString;
 }
 
 /** EVENT HANDLER FUNCTIONS */
 
 // landing page start quiz submit event
+
 function landingPageSubmitEventHandler() {
- ${'form'}.on('submit', '.start-button', event => {
+  $('main').on('submit', event => {
     event.preventDefault();
     store.quizStarted = true;
     //render();
- }
- )
+  }
+  );
 }
 
-// question page submit answer event
+//answer checked handler event
+function answerCheckedClickedHandler() {
+  $('form').on('click', 'input', event => {
+    let selectedOption = $('input[name=answer]:checked').val();
+  return selectedOption;
 
-function questionPageSubmitAnswerEventHandler() {
-  $('form').on('submit', '#submit-button', event => {
-    event.preventDefault();
-      if()
-  }
-  )
- }
+}
+
+// // question page submit answer event
+
+// function questionPageSubmitAnswerEventHandler() {
+//   $('form').on('submit', '#submit-button', event => {
+//     event.preventDefault();
+//       if()
+//   }
+//   )
+//  }
 
 // feedack page continue to next question submit event
 
@@ -231,9 +239,8 @@ function reset() {
 
 function runQuizApp() {
   render();
-  console.log(generateQuestionPageString());
-  console.log(generateFeedbackPageCorrectString());
-  console.log(generateFeedbackPageIncorrectString());
+  console.log(landingPageSubmitEventHandler());
+  
   
   
   // call each event handler function
