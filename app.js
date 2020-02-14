@@ -4,28 +4,30 @@
 const store = {
   questions: [
     {
-      question: 'What color is broccoli?',
+      question: 'Which of the following used a Ponzi scheme to defraud billions of dollars from investors until he was caught in 2008?' 
+      ,
       answers: [
-        'red',
-        'orange',
-        'pink',
-        'green'
+        'Satoshi Nakamoto',
+        'Benjamin Graham',
+        'Bernie Madoff',
+        'David Einhorn'
       ],
-      correctAnswer: 'green'
+      correctAnswer: 'Bernie Madoff'
     },
     {
-      question: 'What is the current year?',
+      question: 'Who famously shorted the British pound to make over a billion dollars on a single trade?',
       answers: [
-        '1970',
-        '2015',
-        '2019',
-        '2005'
+        'George Soros',
+        'Bill Ackman',
+        'Benjamin Graham',
+        'Satoshi Nakamoto'
       ],
-      correctAnswer: '2019'
+      correctAnswer: 'George Soros'
     }
   ],
-  questionNumber: 0,
-  score: 0
+  questionNumber: 1,
+  score: 1,
+  quizStarted: false,
 };
 
 function renderLandingPage(){
@@ -90,7 +92,7 @@ function main() {
   renderSummaryPage();
 }
 
-$(main);
+// $(main);
 
 /** RENDER FUNCTION */
 function render() {
@@ -101,7 +103,46 @@ function render() {
 
 // landing page 
 
+function generateLandingPageString() {
+  let landingPageString = `<section class="welcome-screen">
+  <header>
+    <h1>Welcome!</h1>
+  </header>
+  <main>
+    <form class="pageOneForm"><button type='submit' class="start-button">Start Quiz!</button></form>
+    <p>How well do you know the world’s most famous investors?</p>
+  </main>
+  </section>`;
+  return landingPageString;
+}
+
 // question page
+function generateQuestionPageString() {
+  let questionString = store.questions[store.questionNumber - 1].question;
+  let questionPageString = `<section class="question-screen" id="question-one">
+  <header>
+    <p>Question Number: ${store.questionNumber}</p>
+    <p>Current Score: ${store.score}</p>
+  </header>
+  <main>
+    <h1>${questionString}</h1>
+    <form>
+      <input type="radio" id="answer-one" name="answer" value="answer">
+      <label for="answer">Satoshi Nakamoto</label><br>
+      <input type="radio" id="answer-two" name="answer" value="female">
+      <label for="answer">Benjamin Graham</label><br>
+      <input type="radio" id="answer-three" name="answer" value="other">
+      <label for="answer">Bernie Madoff</label><br>
+      <input type="radio" id="answer-four" name="answer" value="other">
+      <label for="answer">David Einhorn</label><br>
+      <button type="submit">Submit</button>
+    </form>
+
+  </main>
+</section>`;
+
+  return questionPageString;
+}
 
 // feedback page
 
@@ -129,6 +170,9 @@ function reset() {
 
 function runQuizApp() {
   render();
+  console.log(generateQuestionPageString());
+  
+  
   // call each event handler function
 
 }
