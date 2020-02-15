@@ -30,72 +30,72 @@ const store = {
   quizStarted: false,
 };
 
-function renderLandingPage(){
-  console.log('landing page rendering function working');
-  $('#container').html(`<section class="welcome-screen">
-  <header>
-    <h1>Welcome!</h1>
-  </header>
-  <main>
-    <form class="pageOneForm"><button type='submit' class="start-button">Start Quiz!</button></form>
-    <p>How well do you know the world’s most famous investors?</p>
-  </main>
-  </section>`);
-  $('main').on('submit', '.pageOneForm', event => {
-    event.preventDefault();
-    console.log('submit event function working');
-  });
+// function renderLandingPage(){
+//   console.log('landing page rendering function working');
+//   $('#container').html(`<section class="welcome-screen">
+//   <header>
+//     <h1>Welcome!</h1>
+//   </header>
+//   <main>
+//     <form class="pageOneForm"><button type='submit' class="start-button">Start Quiz!</button></form>
+//     <p>How well do you know the world’s most famous investors?</p>
+//   </main>
+//   </section>`);
+//   $('main').on('submit', '.pageOneForm', event => {
+//     event.preventDefault();
+//     console.log('submit event function working');
+//   });
 
-}
+// }
 
-function renderQuestionPage() {
-  console.log('question page rendering function working');
-  $('#container').html(`<section class="question-screen" id="question-one">
-  <header>
-    <p>Current Question: 3</p>
-    <p>Current Score: 1</p>
-  </header>
-  <main>
-    <h1>Which of the following used a Ponzi scheme to defraud billions of dollars 
-        from investors until he was caught in 2008?</h1>
-    <form>
-      <input type="radio" id="answer-one" name="answer" value="answer">
-      <label for="answer">Satoshi Nakamoto</label><br>
-      <input type="radio" id="answer-two" name="answer" value="female">
-      <label for="answer">Benjamin Graham</label><br>
-      <input type="radio" id="answer-three" name="answer" value="other">
-      <label for="answer">Bernie Madoff</label><br>
-      <input type="radio" id="answer-four" name="answer" value="other">
-      <label for="answer">David Einhorn</label><br>
-      <button type="submit">Submit</button>
-    </form>
+// function renderQuestionPage() {
+//   console.log('question page rendering function working');
+//   $('#container').html(`<section class="question-screen" id="question-one">
+//   <header>
+//     <p>Current Question: 3</p>
+//     <p>Current Score: 1</p>
+//   </header>
+//   <main>
+//     <h1>Which of the following used a Ponzi scheme to defraud billions of dollars 
+//         from investors until he was caught in 2008?</h1>
+//     <form>
+//       <input type="radio" id="answer-one" name="answer" value="answer">
+//       <label for="answer">Satoshi Nakamoto</label><br>
+//       <input type="radio" id="answer-two" name="answer" value="female">
+//       <label for="answer">Benjamin Graham</label><br>
+//       <input type="radio" id="answer-three" name="answer" value="other">
+//       <label for="answer">Bernie Madoff</label><br>
+//       <input type="radio" id="answer-four" name="answer" value="other">
+//       <label for="answer">David Einhorn</label><br>
+//       <button type="submit">Submit</button>
+//     </form>
 
-  </main>
-</section>`);
+//   </main>
+// </section>`);
 
-}
+// }
 
-function renderFeedbackPage() {
-  console.log('feedback page rendering function working');
+// function renderFeedbackPage() {
+//   console.log('feedback page rendering function working');
 
-}
+// }
 
-function renderSummaryPage() {
-  console.log('summary page rendering function working');
+// function renderSummaryPage() {
+//   console.log('summary page rendering function working');
 
-}
+// }
 
-function main() {
-  renderLandingPage();
-  // renderQuestionPage();
-  renderFeedbackPage();
-  renderSummaryPage();
-}
+// function main() {
+//   renderLandingPage();
+//   // renderQuestionPage();
+//   renderFeedbackPage();
+//   renderSummaryPage();
+// }
 
-// $(main);
 
 /** RENDER FUNCTION */
 function render() {
+
 
 }
 
@@ -145,33 +145,20 @@ function generateQuestionPageString() {
 
 // feedback page
 function generateFeedbackPageCorrectString() {
-  let feedbackPageString =  `<section class="feedback-screen-correct">
-    <header>
-      <h1>Correct!</h1>
-    </header>
-    <main>
-      <p>Your score is now: ${store.score}</p>
-      <button type='submit'>Continue</button>
-      <p>Press continue to move on to question ${store.questionNumber + 1}</p>;
-    </main>
-  </section>`;
+  let feedbackPageString =  `<p>Your score is now: ${store.score}</p>
+      <button type='button' class="next-button">Continue</button>
+      <p>Press continue to move on to question ${store.questionNumber + 1}</p>`
+      ;
   
   return feedbackPageString;
 }
 
 function generateFeedbackPageIncorrectString() {
   let correctAnswerString = store.questions[store.questionNumber - 1].correctAnswer;
-  let feedbackPageString =  `<section class="feedback-screen-incorrect">
-  <header>
-    <h1>Sorry, that was incorrect.</h1>
-  </header>
-  <main>
-    <p>The correct answer is: ${correctAnswerString}</p>
+  let feedbackPageString =  `<p>The correct answer is: ${correctAnswerString}</p>
     <p>Your score is now: ${store.score}</p>
-    <button type='submit'>Continue</button>
-    <p>Press continue to move on to question ${store.questionNumber + 1}</p>
-  </main>
-</section>`;
+    <button type='button' class="next-button">Continue</button>
+    <p>Press continue to move on to question ${store.questionNumber + 1}</p>`;
 
   return feedbackPageString;
 }
@@ -194,7 +181,7 @@ function generateSummaryPageString() {
 
 /** EVENT HANDLER FUNCTIONS */
 
-// landing page start quiz submit event
+// landing page start quiz submit event handler
 
 function landingPageSubmitEventHandler() {
   $('main').on('submit', event => {
@@ -213,17 +200,32 @@ function answerCheckedClickedHandler() {
 
 }
 
-// // question page submit answer event
+// question page submit answer event handler
 
-// function questionPageSubmitAnswerEventHandler() {
-//   $('form').on('submit', '#submit-button', event => {
-//     event.preventDefault();
-//       if()
-//   }
-//   )
-//  }
+  // compare selected radio button value with correct answer
 
-// feedack page continue to next question submit event
+  // append correct or incorrect feedback page html depending on true or false
+
+  // show next button and hide submit button
+
+$('.next-button').show()
+$('.submit-button').hide()
+
+
+function questionPageSubmitAnswerEventHandler() {
+  $('form').on('submit', '#submit-button', event => {
+    event.preventDefault();
+      if()
+  }
+  )
+ }
+
+// feedback page next button event handler
+function feedbackPageNextButtonEventHandler() {
+  $('main').on('click', '.next-button', event => {
+    
+  })
+}
 
 // summary page restart quiz submit event
 
@@ -239,9 +241,6 @@ function reset() {
 
 function runQuizApp() {
   render();
-  console.log(landingPageSubmitEventHandler());
-  
-  
   
   // call each event handler function
 
