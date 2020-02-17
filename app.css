@@ -6,16 +6,31 @@ body {
   font-family: "Roboto", sans-serif;
   margin: 0;
   padding: 0;
+}
+
+header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  justify-content: center;
   
 }
 
-section {
+
+#welcome-screen {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+p {
+  
+  padding: 20px;
+}
+
+ .correct-screen, .incorrect-screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-size: 25px;
 }
 
 h1 {
