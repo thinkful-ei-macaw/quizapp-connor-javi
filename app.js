@@ -6,9 +6,11 @@ const store = {
     {
       question: 'Which of the following used a Ponzi scheme to defraud billions of dollars from investors until he was caught in 2008?' 
       ,
+      pictureSrc: 'https://themerkle.com/wp-content/uploads/2016/10/shutterstock_387671092.jpg',
+      pictureAlt: 'A house of cards made out of money',
       answers: [
         'Satoshi Nakamoto',
-        'Benjamin Graham',
+        'T. Boone Pickens',
         'Bernie Madoff',
         'David Einhorn'
       ],
@@ -16,136 +18,133 @@ const store = {
     },
     {
       question: 'Who famously shorted the British pound to make over a billion dollars on a single trade?',
+      pictureSrc: 'https://content.fortune.com/wp-content/uploads/2015/07/stocks-1280x720.jpg?resize=750,500',
+      pictureAlt: 'British pound bank notes',
       answers: [
         'George Soros',
         'Bill Ackman',
-        'Benjamin Graham',
-        'Satoshi Nakamoto'
+        'John Templeton',
+        'Marc Andreessen'
       ],
       correctAnswer: 'George Soros'
+    },
+    {
+      question: 'Who was the first investor in Facebook, co-founded PayPal and is a Partner at Founders Fund?' 
+      ,
+      pictureSrc: 'https://scalar.usc.edu/works/farnham-research/media/facebook-historical-user-count-graph.png',
+      pictureAlt: 'Facebook monthly active users over time',
+      answers: [
+        'Mark Zuckerberg',
+        'Peter Thiel',
+        'Peter Lynch',
+        'Donald Trump'
+      ],
+      correctAnswer: 'Peter Thiel'
+    },
+    {
+      question: 'Who is considered the father of value investing and wrote the book Securities Analysis?' 
+      ,
+      pictureSrc: 'https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F140833%2Fvalue-investing.jpg&w=700&op=resize',
+      pictureAlt: 'Value investing is investing with a margin of safety',
+      answers: [
+        'Benjamin Graham',
+        'Jonathan Lennon',
+        'Carl Icahn',
+        'David Tepper'
+      ],
+      correctAnswer: 'Benjamin Graham'
+    },
+    {
+      question: 'Which of the following investors founded Renaissance Technologies which pioneered quantitative investing and returned 98% in 2008 vs. a 38% loss for the S&P 500?' 
+      ,
+      pictureSrc: 'https://digital.hbs.edu/platform-digit/wp-content/uploads/sites/2/2017/02/Picture3.png',
+      pictureAlt: 'Renaissance Technologies flagship fund is beating the market',
+      answers: [
+        'Jeff Bezos',
+        'Suze Orman',
+        'Mark Cuban',
+        'Jim Simons'
+      ],
+      correctAnswer: 'Jim Simons'
     }
   ],
-  questionNumber: 0,
+  questionNumber: 1,
+  numberOfQuestions: 5,
   score: 0,
   quizStarted: false,
 };
 
-// function renderLandingPage(){
-//   console.log('landing page rendering function working');
-//   $('#container').html(`<section class="welcome-screen">
-//   <header>
-//     <h1>Welcome!</h1>
-//   </header>
-//   <main>
-//     <form class="pageOneForm"><button type='submit' class="start-button">Start Quiz!</button></form>
-//     <p>How well do you know the world’s most famous investors?</p>
-//   </main>
-//   </section>`);
-//   $('main').on('submit', '.pageOneForm', event => {
-//     event.preventDefault();
-//     console.log('submit event function working');
-//   });
-
-// }
-
-// function renderQuestionPage() {
-//   console.log('question page rendering function working');
-//   $('#container').html(`<section class="question-screen" id="question-one">
-//   <header>
-//     <p>Current Question: 3</p>
-//     <p>Current Score: 1</p>
-//   </header>
-//   <main>
-//     <h1>Which of the following used a Ponzi scheme to defraud billions of dollars 
-//         from investors until he was caught in 2008?</h1>
-//     <form>
-//       <input type="radio" id="answer-one" name="answer" value="answer">
-//       <label for="answer">Satoshi Nakamoto</label><br>
-//       <input type="radio" id="answer-two" name="answer" value="female">
-//       <label for="answer">Benjamin Graham</label><br>
-//       <input type="radio" id="answer-three" name="answer" value="other">
-//       <label for="answer">Bernie Madoff</label><br>
-//       <input type="radio" id="answer-four" name="answer" value="other">
-//       <label for="answer">David Einhorn</label><br>
-//       <button type="submit">Submit</button>
-//     </form>
-
-//   </main>
-// </section>`);
-
-// }
-
-// function renderFeedbackPage() {
-//   console.log('feedback page rendering function working');
-
-// }
-
-// function renderSummaryPage() {
-//   console.log('summary page rendering function working');
-
-// }
-
-// function main() {
-//   renderLandingPage();
-//   // renderQuestionPage();
-//   renderFeedbackPage();
-//   renderSummaryPage();
-// }
-
 
 /** RENDER FUNCTION */
 function render() {
-
-
+  if (store.quizStarted === false) {
+    $('body').html(generateLandingPageString());
+  } else if (store.questionNumber > store.numberOfQuestions) {
+    $('body').html(generateSummaryPageString());
+  } else {
+    $('body').html(generateQuestionPageString());
+  }
+  
+  // if (store.quizStarted === false) {
+  //   $('body').html(generateLandingPageString());
+  // } else {
+  //   $('body').html(generateSummaryPageString());
+  // }
+  
 }
 
 /** TEMPLATE GENERATOR FUNCTIONS */
 
-// landing page 
+// landing page string generator +
 
 function generateLandingPageString() {
-  let landingPageString = `<section class="welcome-screen">
-    <h1>Welcome!</h1>
-  
-    <form class="pageOneForm"><button type='submit' class="start-button">Start Quiz!</button></form>
-    <p>How well do you know the world’s most famous investors?</p>
+  let landingPageString = `<section id="welcome-screen">
+    <h1>How well do you know the world’s most famous investors?</h1>
+    <img src='https://www.fortunebuilders.com/wp-content/uploads/2013/09/Fotolia_44620121_Subscription_Monthly_M1-1024x768.jpg)' alt='Investors in suits walking on the globe'
+    <p>
+    <form id="pageOneForm">
+    <button type='submit' id="start-button">Start Quiz!</button>
+    </form>
+    </p>
+    </section>
   `;
   return landingPageString;
 }
 
-// question page
+// question page string generator +
 function generateQuestionPageString() {
-  let questionArray = store.questions[store.questionNumber - 1].answers.map(e => e);
+  let currentQuestion = ((store.questionNumber) - 1);
+  const questionObject = store.questions[currentQuestion];
   
-  let questionString = store.questions[store.questionNumber - 1].question;
-  let questionPageString = `<section class="question-screen" id="question-one">
+  return `<section class="question-screen" id="question-one">
   <header>
     <p>Question Number: ${store.questionNumber}</p>
     <p>Current Score: ${store.score}</p>
   </header>
   <main>
-    <h1>${questionString}</h1>
-    <form>
-      <input type="radio" id="choice-one" name="answer">
-      <label for="choice-one">${questionArray[0]}</label><br>
-      <input type="radio" id="choice-two" name="answer">
-      <label for="choice-two">${questionArray[1]}</label><br>
-      <input type="radio" id="choice-three" name="answer">
-      <label for="choice-three">${questionArray[2]}</label><br>
-      <input type="radio" id="choice-four" name="answer">
-      <label for="choice-four">${questionArray[3]}</label><br>
-      <button type="submit" id='submit-button'>Submit</button>
+    <img src='${questionObject.pictureSrc}' alt='${questionObject.pictureAlt}'>
+    <h1>${questionObject.question}</h1>
+    <form id='question-form'>
+      <input type="radio" id="choice-one" name="answer" value='${questionObject.answers[0]}'>
+      <label for="choice-one">${questionObject.answers[0]}</label><br>
+      <input type="radio" id="choice-two" name="answer" value='${questionObject.answers[1]}'>
+      <label for="choice-two">${questionObject.answers[1]}</label><br>
+      <input type="radio" id="choice-three" name="answer" value='${questionObject.answers[2]}'>
+      <label for="choice-three">${questionObject.answers[2]}</label><br>
+      <input type="radio" id="choice-four" name="answer" value='${questionObject.answers[3]}'>
+      <label for="choice-four">${questionObject.answers[3]}</label><br>
+      <button type="submit" id='submit-answer'>Submit Answer</button>
     </form>
 
   </main>
 </section>`;
-
-  return questionPageString;
 }
 
-// feedback page
+// feedback page string generator (correct) +
 function generateFeedbackPageCorrectString() {
-  let feedbackPageString =  `<p>Your score is now: ${store.score}</p>
+  let feedbackPageString =  `
+      <p>Correct!!</p>
+      <p>Your score is now: ${store.score}</p>
       <button type='button' class="next-button">Continue</button>
       <p>Press continue to move on to question ${store.questionNumber + 1}</p>`
       ;
@@ -153,25 +152,26 @@ function generateFeedbackPageCorrectString() {
   return feedbackPageString;
 }
 
+// feedback page string generator (incorrect) +
 function generateFeedbackPageIncorrectString() {
   let correctAnswerString = store.questions[store.questionNumber - 1].correctAnswer;
-  let feedbackPageString =  `<p>The correct answer is: ${correctAnswerString}</p>
+  let feedbackPageString =  `<p>Sorry, the correct answer is: ${correctAnswerString}</p>
     <p>Your score is now: ${store.score}</p>
     <button type='button' class="next-button">Continue</button>
     <p>Press continue to move on to question ${store.questionNumber + 1}</p>`;
 
   return feedbackPageString;
 }
-// summary page
 
+// summary page string generator +
 function generateSummaryPageString() {
-  let summaryPageString =  `<section class="Summary Screen">
+  let summaryPageString =  `<section id='summary-page'>
   <header>
     <h1>Quiz Over!</h1>
   </header>
   <main>
     <p>You got ${store.score}/5 Questions Correct</p>
-    <button type='reset'>Retake Quiz</button>
+    <button type='submit' id='restart-button'>Retake Quiz</button>
     <p>Press the retake quiz button to take the quiz again</p>
   </main>
 </section>`; 
@@ -181,72 +181,87 @@ function generateSummaryPageString() {
 
 /** EVENT HANDLER FUNCTIONS */
 
-// landing page start quiz submit event handler
-
+// landing page start quiz submit event handler +
 function landingPageSubmitEventHandler() {
-  $('main').on('submit', event => {
+  $('#welcome-screen').on('click', '#start-button', event => {
     event.preventDefault();
+    event.stopPropagation();
     store.quizStarted = true;
     //render();
+    render();
   }
   );
 }
 
-//answer checked handler event
-function answerCheckedClickedHandler() {
-  $('form').on('click', 'input', event => {
-    let selectedOption = $('input[name=answer]:checked').val();
-  return selectedOption;
-
-}
-
-// question page submit answer event handler
-
-  // compare selected radio button value with correct answer
-
-  // append correct or incorrect feedback page html depending on true or false
-
-  // show next button and hide submit button
-
-$('.next-button').show()
-$('.submit-button').hide()
-
-
+// question page submit answer event handler +
 function questionPageSubmitAnswerEventHandler() {
-  $('form').on('submit', '#submit-button', event => {
+  $('body').submit(event => {
     event.preventDefault();
-      if()
+    event.stopPropagation();
+    let selectedOption = $('input[type="radio"]:checked').val();
+    let rightAnswer = store.questions[store.questionNumber-1].correctAnswer;
+    console.log(selectedOption);
+    if (selectedOption === rightAnswer) {
+      // increment score
+      store.score++;
+      render();
+      // append feedback page html to container div
+      $('body').append(generateFeedbackPageCorrectString);
+      $('#submit-answer').hide();
+    } else {
+      // append feedback page html to container div
+      $('body').append(generateFeedbackPageIncorrectString);
+      $('#submit-answer').hide();
+    }
   }
-  )
- }
+  );
 
-// feedback page next button event handler
-function feedbackPageNextButtonEventHandler() {
-  $('main').on('click', '.next-button', event => {
-    
-  })
+  // hide submit answer choice button and show continue to next question button
+  // $('.next-button').show(); - not necessary because included in appended html
+  $('.submit-button').hide();
+
 }
 
-// summary page restart quiz submit event
+// feedback page next button event handler +
+function feedbackPageNextButtonEventHandler() {
+  $('body').on('click', '.next-button', event => {
+    // increment question counter in store
+    store.questionNumber++;
+    render();
+  });
+}
+
+// summary page restart quiz event handler 
+function summaryPageRestartEventHandler() {
+  $('body').on('click', '#restart-button',event => {
+    event.preventDefault();
+    reset();
+    render();
+  });
+}
 
 
-/** RESET FUNCTION */
+/** RESET FUNCTION + */
 function reset() {
-  // reset question and number correct counters
-  
-  // set quiz started (boolean) property to false
+  // reset question and number correct counters, and set quizStarted to false
+  store.questionNumber = 1;
+  store.score = 0;
+  store.quizStarted = false;
 }
 
 
 
 function runQuizApp() {
   render();
-  
   // call each event handler function
 
+  landingPageSubmitEventHandler();
+  questionPageSubmitAnswerEventHandler();
+  feedbackPageNextButtonEventHandler();
+  summaryPageRestartEventHandler();
 }
 
-runQuizApp();
+$(runQuizApp());
 
 
 
