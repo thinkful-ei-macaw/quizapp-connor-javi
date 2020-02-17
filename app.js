@@ -185,7 +185,7 @@ function generateSummaryPageString() {
 
 // landing page start quiz submit event handler +
 function landingPageSubmitEventHandler() {
-  $('#welcome-screen').on('click', '#start-button', event => {
+  $('body').on('click', '#start-button', event => {
     event.preventDefault();
     event.stopPropagation();
     store.quizStarted = true;
@@ -209,11 +209,11 @@ function questionPageSubmitAnswerEventHandler() {
       render();
       // append feedback page html to container div
       $('body').append(generateFeedbackPageCorrectString);
-      $('#submit-answer').hide();
+      $('#question-form').hide();
     } else {
       // append feedback page html to container div
       $('body').append(generateFeedbackPageIncorrectString);
-      $('#submit-answer').hide();
+      $('#question-form').hide();
     }
   }
   );
