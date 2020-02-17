@@ -143,10 +143,12 @@ function generateQuestionPageString() {
 // feedback page string generator (correct) +
 function generateFeedbackPageCorrectString() {
   let feedbackPageString =  `
+      <section class="correct-screen">
       <p>Correct!!</p>
       <p>Your score is now: ${store.score}</p>
       <button type='button' class="next-button">Continue</button>
-      <p>Press continue to move on to question ${store.questionNumber + 1}</p>`
+      <p>Press continue to move on to question ${store.questionNumber + 1}</p>
+      </section>`
       ;
   
   return feedbackPageString;
@@ -155,10 +157,10 @@ function generateFeedbackPageCorrectString() {
 // feedback page string generator (incorrect) +
 function generateFeedbackPageIncorrectString() {
   let correctAnswerString = store.questions[store.questionNumber - 1].correctAnswer;
-  let feedbackPageString =  `<p>Sorry, the correct answer is: ${correctAnswerString}</p>
+  let feedbackPageString =  `<section class="incorrect-screen"><p>Sorry, the correct answer is: ${correctAnswerString}</p>
     <p>Your score is now: ${store.score}</p>
     <button type='button' class="next-button">Continue</button>
-    <p>Press continue to move on to question ${store.questionNumber + 1}</p>`;
+    <p>Press continue to move on to question ${store.questionNumber + 1}</p></section>`;
 
   return feedbackPageString;
 }
