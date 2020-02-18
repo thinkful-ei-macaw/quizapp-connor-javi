@@ -1,96 +1,68 @@
+/*eslint-env jquery*/
+
 'use strict';
-
-
 const store = {
   questions: [
     {
-      question: 'Which of the following used a Ponzi scheme to defraud billions of dollars from investors until he was caught in 2008?' 
-      ,
+      question:
+        'Which of the following used a Ponzi scheme to defraud billions of dollars from investors until he was caught in 2008?',
       pictureSrc: 'https://themerkle.com/wp-content/uploads/2016/10/shutterstock_387671092.jpg',
       pictureAlt: 'A house of cards made out of money',
-      answers: [
-        'Satoshi Nakamoto',
-        'T. Boone Pickens',
-        'Bernie Madoff',
-        'David Einhorn'
-      ],
+      answers: ['Satoshi Nakamoto', 'T. Boone Pickens', 'Bernie Madoff', 'David Einhorn'],
       correctAnswer: 'Bernie Madoff'
     },
     {
       question: 'Who famously shorted the British pound to make over a billion dollars on a single trade?',
       pictureSrc: 'https://content.fortune.com/wp-content/uploads/2015/07/stocks-1280x720.jpg?resize=750,500',
       pictureAlt: 'British pound bank notes',
-      answers: [
-        'George Soros',
-        'Bill Ackman',
-        'John Templeton',
-        'Marc Andreessen'
-      ],
+      answers: ['George Soros', 'Bill Ackman', 'John Templeton', 'Marc Andreessen'],
       correctAnswer: 'George Soros'
     },
     {
-      question: 'Who was the first investor in Facebook, co-founded PayPal and is a Partner at Founders Fund?' 
-      ,
+      question: 'Who was the first investor in Facebook, co-founded PayPal and is a Partner at Founders Fund?',
       pictureSrc: 'https://scalar.usc.edu/works/farnham-research/media/facebook-historical-user-count-graph.png',
       pictureAlt: 'Facebook monthly active users over time',
-      answers: [
-        'Mark Zuckerberg',
-        'Peter Thiel',
-        'Peter Lynch',
-        'Donald Trump'
-      ],
+      answers: ['Mark Zuckerberg', 'Peter Thiel', 'Peter Lynch', 'Donald Trump'],
       correctAnswer: 'Peter Thiel'
     },
     {
-      question: 'Who is considered the father of value investing and wrote the book Securities Analysis?' 
-      ,
-      pictureSrc: 'https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F140833%2Fvalue-investing.jpg&w=700&op=resize',
+      question: 'Who is considered the father of value investing and wrote the book Securities Analysis?',
+      pictureSrc:
+        'https://g.foolcdn.com/image/?url=https%3A%2F%2Fg.foolcdn.com%2Feditorial%2Fimages%2F140833%2Fvalue-investing.jpg&w=700&op=resize',
       pictureAlt: 'Value investing is investing with a margin of safety',
-      answers: [
-        'Benjamin Graham',
-        'Jonathan Lennon',
-        'Carl Icahn',
-        'David Tepper'
-      ],
+      answers: ['Benjamin Graham', 'Jonathan Lennon', 'Carl Icahn', 'David Tepper'],
       correctAnswer: 'Benjamin Graham'
     },
     {
-      question: 'Which of the following investors founded Renaissance Technologies which pioneered quantitative investing and returned 98% in 2008 vs. a 38% loss for the S&P 500?' 
-      ,
+      question:
+        'Which of the following investors founded Renaissance Technologies which pioneered quantitative investing and returned 98% in 2008 vs. a 38% loss for the S&P 500?',
       pictureSrc: 'https://digital.hbs.edu/platform-digit/wp-content/uploads/sites/2/2017/02/Picture3.png',
       pictureAlt: 'Renaissance Technologies flagship fund is beating the market',
-      answers: [
-        'Jeff Bezos',
-        'Suze Orman',
-        'Mark Cuban',
-        'Jim Simons'
-      ],
+      answers: ['Jeff Bezos', 'Suze Orman', 'Mark Cuban', 'Jim Simons'],
       correctAnswer: 'Jim Simons'
     }
   ],
   questionNumber: 1,
   numberOfQuestions: 5,
   score: 0,
-  quizStarted: false,
+  quizStarted: false
 };
-
 
 /** RENDER FUNCTION */
 function render() {
   if (store.quizStarted === false) {
-    $('body').html(generateLandingPageString());
+    $('#container').html(generateLandingPageString());
   } else if (store.questionNumber > store.numberOfQuestions) {
-    $('body').html(generateSummaryPageString());
+    $('#container').html(generateSummaryPageString());
   } else {
-    $('body').html(generateQuestionPageString());
+    $('#container').html(generateQuestionPageString());
   }
-  
+
   // if (store.quizStarted === false) {
   //   $('body').html(generateLandingPageString());
   // } else {
   //   $('body').html(generateSummaryPageString());
   // }
-  
 }
 
 /** TEMPLATE GENERATOR FUNCTIONS */
@@ -100,7 +72,7 @@ function render() {
 function generateLandingPageString() {
   let landingPageString = `<section id="welcome-screen">
     <h1>How well do you know the world’s most famous investors?</h1>
-    <img src='https://www.fortunebuilders.com/wp-content/uploads/2013/09/Fotolia_44620121_Subscription_Monthly_M1-1024x768.jpg)' alt='Investors in suits walking on the globe'
+    <img id='first-image' src='https://www.fortunebuilders.com/wp-content/uploads/2013/09/Fotolia_44620121_Subscription_Monthly_M1-1024x768.jpg)' alt='Investors in suits walking on the globe'
     <p>
     <form id="pageOneForm">
     <button type='submit' id="start-button">Start Quiz!</button>
@@ -113,14 +85,14 @@ function generateLandingPageString() {
 
 // question page string generator +
 function generateQuestionPageString() {
-  let currentQuestion = ((store.questionNumber) - 1);
+  let currentQuestion = store.questionNumber - 1;
   const questionObject = store.questions[currentQuestion];
-  
-  return `<section class="question-screen" id="question-one">
-  <header>
-    <p>Question Number: ${store.questionNumber}</p>
-    <p>Current Score: ${store.score}</p>
-  </header>
+
+  return `<section class="question-screen">
+  <div id='question-details'>
+    <p class='toppers'>Question: ${store.questionNumber}</p>
+    <p class='toppers'>Score: ${store.score}</p>
+  </div>
   <main>
     <img src='${questionObject.pictureSrc}' alt='${questionObject.pictureAlt}'>
     <h1>${questionObject.question}</h1>
@@ -142,24 +114,26 @@ function generateQuestionPageString() {
 
 // feedback page string generator (correct) +
 function generateFeedbackPageCorrectString() {
-  let feedbackPageString =  `
+  let feedbackPageString = `
       <section class="correct-screen">
       <p>Correct!!</p>
       <p>Your score is now: ${store.score}</p>
-      <button type='button' class="next-button">Continue</button>
+      <form id='feedback-form'>
+      <button type='submit' class="next-button">Continue</button>
+      </form>
       <p>Press continue to move on to question ${store.questionNumber + 1}</p>
-      </section>`
-      ;
-  
+      </section>`;
   return feedbackPageString;
 }
 
 // feedback page string generator (incorrect) +
 function generateFeedbackPageIncorrectString() {
   let correctAnswerString = store.questions[store.questionNumber - 1].correctAnswer;
-  let feedbackPageString =  `<section class="incorrect-screen"><p>Sorry, the correct answer is: ${correctAnswerString}</p>
+  let feedbackPageString = `<section class="incorrect-screen"><p>Sorry, the correct answer is: ${correctAnswerString}</p>
     <p>Your score is now: ${store.score}</p>
-    <button type='button' class="next-button">Continue</button>
+    <form id='feedback-form'>
+    <button type='submit' class="next-button">Continue</button>
+    </form>
     <p>Press continue to move on to question ${store.questionNumber + 1}</p></section>`;
 
   return feedbackPageString;
@@ -167,16 +141,18 @@ function generateFeedbackPageIncorrectString() {
 
 // summary page string generator +
 function generateSummaryPageString() {
-  let summaryPageString =  `<section id='summary-page'>
+  let summaryPageString = `<section id='summary-page'>
   <header>
     <h1>Quiz Over!</h1>
   </header>
-  <main>
+  <main id='summary'>
     <p>You got ${store.score}/5 Questions Correct</p>
+    <form id='restart-form'>
     <button type='submit' id='restart-button'>Retake Quiz</button>
+    </form>
     <p>Press the retake quiz button to take the quiz again</p>
   </main>
-</section>`; 
+  </section>`;
 
   return summaryPageString;
 }
@@ -185,63 +161,60 @@ function generateSummaryPageString() {
 
 // landing page start quiz submit event handler +
 function landingPageSubmitEventHandler() {
-  $('body').on('click', '#start-button', event => {
-    event.preventDefault();
-    event.stopPropagation();
+  $('#container').on('submit', '#pageOneForm', () => {
     store.quizStarted = true;
     //render();
     render();
-  }
-  );
+  });
 }
 
 // question page submit answer event handler +
 function questionPageSubmitAnswerEventHandler() {
-  $('body').submit(event => {
+  console.log('question page event handler');
+  $('#container').on('submit', '#question-form', event => {
     event.preventDefault();
     event.stopPropagation();
     let selectedOption = $('input[type="radio"]:checked').val();
-    let rightAnswer = store.questions[store.questionNumber-1].correctAnswer;
+    let rightAnswer = store.questions[store.questionNumber - 1].correctAnswer;
     console.log(selectedOption);
     if (selectedOption === rightAnswer) {
       // increment score
       store.score++;
       render();
       // append feedback page html to container div
-      $('body').append(generateFeedbackPageCorrectString);
+      $('#container').append(generateFeedbackPageCorrectString);
       $('#question-form').hide();
     } else {
       // append feedback page html to container div
-      $('body').append(generateFeedbackPageIncorrectString);
+      $('#container').append(generateFeedbackPageIncorrectString);
       $('#question-form').hide();
     }
-  }
-  );
+    console.log('appended feedback html');
+  });
 
   // hide submit answer choice button and show continue to next question button
   // $('.next-button').show(); - not necessary because included in appended html
   $('.submit-button').hide();
-
 }
 
 // feedback page next button event handler +
 function feedbackPageNextButtonEventHandler() {
-  $('body').on('click', '.next-button', event => {
+  $('#container').on('submit', '#feedback-form', event => {
+    event.preventDefault;
     // increment question counter in store
     store.questionNumber++;
     render();
   });
 }
 
-// summary page restart quiz event handler 
+// summary page restart quiz event handler
 function summaryPageRestartEventHandler() {
-  $('body').on('click', '#restart-button',event => {
+  $('#container').on('submit', '#restart-form', event => {
     event.preventDefault();
     reset();
     render();
   });
 }
-
 
 /** RESET FUNCTION + */
 function reset() {
@@ -250,8 +223,6 @@ function reset() {
   store.score = 0;
   store.quizStarted = false;
 }
-
-
 
 function runQuizApp() {
   render();
@@ -264,12 +235,6 @@ function runQuizApp() {
 }
 
 $(runQuizApp());
-
-
-
-
-
-
 
 /**
  *
